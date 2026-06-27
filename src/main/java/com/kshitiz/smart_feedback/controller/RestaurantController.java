@@ -1,29 +1,25 @@
 package com.kshitiz.smart_feedback.controller;
 
-
 import com.kshitiz.smart_feedback.entity.Restaurant;
-import com.kshitiz.smart_feedback.service.RestaurantService;
+import com.kshitiz.smart_feedback.repository.RestaurantRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/restaurants")
+@RequestMapping("/restaurant")
+@CrossOrigin(origins = "http://localhost:5173")
 public class RestaurantController {
 
-    private final RestaurantService service;
+    private final RestaurantRepository restaurantRepository;
 
-    public RestaurantController(RestaurantService service) {
-        this.service = service;
+    public RestaurantController(RestaurantRepository restaurantRepository) {
+        this.restaurantRepository = restaurantRepository;
     }
 
-    @PostMapping
-    public Restaurant createRestaurant(@RequestBody Restaurant restaurant) {
-        return service.save(restaurant);
+    @GetMapping("/{id}")
+    public Restaurant getRestaurant(@PathVariable Long id) {
+
+        return restaurantRepository.findById(id).orElse(null);
+
     }
 
-    @GetMapping
-    public List<Restaurant> getAllRestaurants() {
-        return service.getAllRestaurants();
-    }
 }

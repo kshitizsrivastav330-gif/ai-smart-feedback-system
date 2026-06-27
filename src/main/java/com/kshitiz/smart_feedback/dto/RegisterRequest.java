@@ -1,41 +1,20 @@
-package com.kshitiz.smart_feedback.entity;
+package com.kshitiz.smart_feedback.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "restaurant")
-public class Restaurant {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class RegisterRequest {
 
     private String name;
-
-    @Column(unique = true)
     private String email;
-
     private String password;
-
     private String location;
 
-    public Restaurant() {
+    public RegisterRequest() {
     }
 
-    public Restaurant(Long id, String name, String email, String password, String location) {
-        this.id = id;
+    public RegisterRequest(String name, String email, String password, String location) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.location = location;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

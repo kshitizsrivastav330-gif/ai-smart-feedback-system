@@ -11,6 +11,35 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long restaurantId;
+
+    private String customerName;
+
+    private Integer rating;
+
+    private String comment;
+
+    private LocalDateTime createdAt;
+
+    public Feedback() {
+    }
+
+    public Feedback(Long id, Long restaurantId, String customerName,
+                    Integer rating, String comment,
+                    LocalDateTime createdAt) {
+
+        this.id = id;
+        this.restaurantId = restaurantId;
+        this.customerName = customerName;
+        this.rating = rating;
+        this.comment = comment;
+        this.createdAt = createdAt;
+    }
+
+    // =========================
+    // Getters and Setters
+    // =========================
+
     public Long getId() {
         return id;
     }
@@ -25,6 +54,14 @@ public class Feedback {
 
     public void setRestaurantId(Long restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public Integer getRating() {
@@ -51,25 +88,4 @@ public class Feedback {
         this.createdAt = createdAt;
     }
 
-    private Long restaurantId;
-
-    private Integer rating;
-
-    private String comment;
-
-    private LocalDateTime createdAt;
-
-    public Feedback() {
-    }
-
-    public Feedback(Long id, Long restaurantId, Integer rating,
-                    String comment, LocalDateTime createdAt) {
-        this.id = id;
-        this.restaurantId = restaurantId;
-        this.rating = rating;
-        this.comment = comment;
-        this.createdAt = createdAt;
-    }
-
-    // Generate getters and setters using IntelliJ
 }
