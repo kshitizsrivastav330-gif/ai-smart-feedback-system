@@ -1,0 +1,242 @@
+.qr-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: linear-gradient(135deg, #f8fbff, #eef5ff);
+
+    padding: 40px;
+
+}
+
+.qr-card {
+
+    width: 560px;
+
+    background: white;
+
+    border-radius: 28px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    box-shadow: 0 25px 60px rgba(0,0,0,.12);
+
+    border: 1px solid #edf2f7;
+
+}
+
+.qr-card h1{
+
+    margin:0;
+
+    font-size:48px;
+
+    font-weight:800;
+
+    color:#111827;
+
+    line-height:1.15;
+
+    letter-spacing:-1px;
+}
+
+.qr-card h3{
+
+    margin:12px 0 20px;
+
+    color:#2563eb;
+
+    font-size:28px;
+
+    font-weight:700;
+}
+
+.qr-card p{
+
+    max-width:420px;
+
+    margin:0 auto 35px;
+
+    color:#6b7280;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    text-align:center;
+}
+
+.qr-box {
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    border: 2px solid #e5e7eb;
+
+    transition: .3s;
+
+}
+
+.qr-box:hover {
+
+    transform: scale(1.03);
+
+    box-shadow: 0 15px 35px rgba(37,99,235,.15);
+
+}
+
+.link-box {
+
+    margin-top: 28px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    padding: 16px;
+
+    color: #2563eb;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    word-break: break-all;
+
+}
+
+.btn-group {
+
+    margin-top: 30px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 15px;
+
+}
+
+.copy-btn,
+.download-btn,
+.print-btn {
+
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 14px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.copy-btn {
+
+    background: #2563eb;
+
+    color: white;
+
+}
+
+.copy-btn:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-3px);
+
+}
+
+.download-btn {
+
+    background: #16a34a;
+
+    color: white;
+
+}
+
+.download-btn:hover {
+
+    background: #15803d;
+
+    transform: translateY(-3px);
+
+}
+
+.print-btn {
+
+    background: #f59e0b;
+
+    color: white;
+
+}
+
+.print-btn:hover {
+
+    background: #d97706;
+
+    transform: translateY(-3px);
+
+}
+
+@media (max-width:768px) {
+
+    .qr-card {
+
+        width: 100%;
+
+        padding: 30px 20px;
+
+    }
+
+    .qr-card h1 {
+
+        font-size: 30px;
+
+    }
+
+    .qr-card h3 {
+
+        font-size: 20px;
+
+    }
+
+    .btn-group {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .copy-btn,
+    .download-btn,
+    .print-btn {
+
+        width: 100%;
+
+    }
+
+}
