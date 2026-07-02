@@ -9,7 +9,7 @@ function QRCodePage() {
     const restaurantName = "Paradise Restaurant";
 
     // Development URL
-    const qrValue = `http://localhost:5173/feedback/${restaurantId}`;
+    const qrValue = `https://ai-smart-feedback-system.vercel.app/feedback/${restaurantId}`;
 
     // After deployment use:
     // const qrValue = `https://your-project.vercel.app/feedback/${restaurantId}`;
