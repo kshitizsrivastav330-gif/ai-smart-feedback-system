@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios Instance
 const API = axios.create({
-    baseURL: "http://localhost:8080"
+    baseURL: "https://ai-smart-feedback-system.onrender.com"
 });
 
 // Automatically send JWT Token
