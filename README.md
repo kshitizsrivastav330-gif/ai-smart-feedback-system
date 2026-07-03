@@ -237,7 +237,7 @@ https://github.com/kshitizsrivastav330-gif
 
 LinkedIn
 
-(Add Your LinkedIn)
+https://www.linkedin.com/in/kshitiz-srivastava-673223315
 
 ---
 
