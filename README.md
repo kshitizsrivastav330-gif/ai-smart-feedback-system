@@ -64,15 +64,18 @@ https://ai-smart-feedback-system.onrender.com
 
 ## Home Page
 
-<img width="818" height="613" alt="image" src="https://github.com/user-attachments/assets/90043365-3cf7-43ef-a4cf-88c4ac98c0eb" />
+<img width="842" height="617" alt="image" src="https://github.com/user-attachments/assets/ba477ac7-d749-4a3e-999c-4ae16abfa8a9" />
+
 
 
 ---
 
 ## Dashboard
 
-<img width="600" height="532" alt="image" src="https://github.com/user-attachments/assets/1527d400-e6eb-41af-bb96-4cebe35b18c2" />
-<img width="525" height="491" alt="image" src="https://github.com/user-attachments/assets/c9ca34ca-a732-4a25-aefb-b49fade0471c" />
+<img width="619" height="504" alt="image" src="https://github.com/user-attachments/assets/6b042e2d-da74-4efc-b932-7b761f80e123" />
+
+<img width="587" height="425" alt="image" src="https://github.com/user-attachments/assets/7d1559cf-3270-403e-8b01-b5d9276a7a1e" />
+
 
 
 
@@ -94,7 +97,8 @@ https://ai-smart-feedback-system.onrender.com
 
 ## QR Code
 
-<img width="600" height="600" alt="Restaurant-QR (2)" src="https://github.com/user-attachments/assets/fb11ed65-8c94-46ef-bb00-0e09263cf877" />
+<img width="700" height="700" alt="Kshitiz_WowLife-QR-Code" src="https://github.com/user-attachments/assets/24ad9f87-1477-4f83-8c71-bf3b575a14a9" />
+
 
 
 ---
