@@ -1,7 +1,7 @@
 package com.kshitiz.smart_feedback.entity;
 
 import jakarta.persistence.*;
-
+import java.time.LocalDateTime;
 @Entity
 @Table(name = "restaurant")
 public class Restaurant {
@@ -18,6 +18,45 @@ public class Restaurant {
     private String password;
 
     private String location;
+    private String qrToken;
+
+    private String qrCodeUrl;
+
+    private boolean active = true;
+
+    private LocalDateTime createdAt;
+
+    public String getQrCodeUrl() {
+        return qrCodeUrl;
+    }
+
+    public void setQrToken(String qrToken) {
+        this.qrToken = qrToken;
+    }
+
+    public void setQrCodeUrl(String qrCodeUrl) {
+        this.qrCodeUrl = qrCodeUrl;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getQrToken() {
+        return qrToken;
+    }
 
     public Restaurant() {
     }

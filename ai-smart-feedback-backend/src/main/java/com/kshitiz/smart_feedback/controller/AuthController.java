@@ -6,7 +6,7 @@ import com.kshitiz.smart_feedback.dto.RegisterRequest;
 import com.kshitiz.smart_feedback.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import com.kshitiz.smart_feedback.dto.LoginResponse;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:5173")
@@ -21,7 +21,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
+    public LoginResponse login(@RequestBody LoginRequest request) {
         return restaurantService.login(request);
     }
 }

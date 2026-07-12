@@ -5,11 +5,11 @@ import "./QRCodePage.css";
 function QRCodePage() {
 
     // Later get from logged-in restaurant
-    const restaurantId = 1;
-    const restaurantName = "Paradise Restaurant";
-
+    const restaurantId = localStorage.getItem("restaurantId");
+    const restaurantName = localStorage.getItem("restaurantName");
     // Development URL
-    const qrValue = `https://ai-smart-feedback-system.vercel.app/feedback/${restaurantId}`;
+    const qrValue =
+        `http://localhost:5173/feedback/${restaurantId}`;
 
     // After deployment use:
     // const qrValue = `https://your-project.vercel.app/feedback/${restaurantId}`;
@@ -56,7 +56,7 @@ function QRCodePage() {
 
             const link = document.createElement("a");
 
-            link.download = "Restaurant-QR.png";
+            link.download = `${restaurantName}-QR.png`;
 
             link.href = canvas.toDataURL("image/png");
 
@@ -79,7 +79,8 @@ function QRCodePage() {
             <div className="qr-card">
                 <h1>AI Smart Feedback</h1>
 
-                <h3>Scan • Rate • Improve</h3>
+                {/*<h3>Scan • Rate • Improve</h3>*/}
+                <h3>{restaurantName}</h3>
 
                 <p>
                     Scan the QR code to rate your experience.

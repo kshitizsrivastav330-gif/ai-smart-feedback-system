@@ -73,9 +73,7 @@ function Navbar() {
                         Dashboard
                     </Link>
 
-                    <Link className="nav-link" to="/qr">
-                        QR Code
-                    </Link>
+                  
                 </div>
             </nav>
         </div>

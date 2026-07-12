@@ -1,12 +1,10 @@
 package com.kshitiz.smart_feedback.service;
 
-
 import com.kshitiz.smart_feedback.dto.DashboardResponse;
 import com.kshitiz.smart_feedback.entity.Feedback;
 import com.kshitiz.smart_feedback.repository.FeedbackRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,17 +19,10 @@ public class AiCommentService {
         this.feedbackRepository = feedbackRepository;
     }
 
+    // Generate AI Comment Only
     public List<String> generateComments(Integer rating) {
 
         String comment = groqService.generateComment(rating);
-
-        Feedback feedback = new Feedback();
-        feedback.setRestaurantId(1001L);
-        feedback.setRating(rating);
-        feedback.setComment(comment);
-        feedback.setCreatedAt(LocalDateTime.now());
-
-        feedbackRepository.save(feedback);
 
         return List.of(comment);
     }
@@ -62,12 +53,12 @@ public class AiCommentService {
         return dashboard;
     }
 
-    // All feedback for a restaurant
+    // Get All Feedback of Restaurant
     public List<Feedback> getAllFeedback(Long restaurantId) {
         return feedbackRepository.findByRestaurantId(restaurantId);
     }
 
-    // Feedback by rating
+    // Get Feedback By Rating
     public List<Feedback> getFeedbackByRating(Long restaurantId, Integer rating) {
         return feedbackRepository.findByRestaurantIdAndRating(restaurantId, rating);
     }

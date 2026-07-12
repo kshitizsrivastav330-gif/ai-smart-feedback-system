@@ -10,4 +10,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     Optional<Restaurant> findByEmail(String email);
 
     boolean existsByEmail(String email);
+    Optional<Restaurant> findByQrToken(String qrToken);
 }

@@ -21,5 +21,11 @@ public class RestaurantController {
         return restaurantRepository.findById(id).orElse(null);
 
     }
+    @GetMapping("/qr/{qrToken}")
+    public Restaurant getRestaurantByQr(@PathVariable String qrToken) {
+
+        return restaurantRepository.findByQrToken(qrToken).orElse(null);
+
+    }
 
 }

@@ -1,7 +1,18 @@
 /* ==========================================================================
-   1. GOOGLE FONT & GENERAL STYLES
+   1. GOOGLE FONT & GLOBAL CONFIG
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --bg-gradient: linear-gradient(135deg, #f8fafc, #f1f5f9, #ffffff);
+    --card-border: 1px solid #e2e8f0;
+    --shadow-smooth: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --radius-lg: 12px;
+}
 
 * {
     margin: 0;
@@ -11,237 +22,315 @@
 }
 
 body {
-    background: #f8fafc;
-    color: #111827;
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* ==========================================================================
-   2. DASHBOARD FRAME & HEADINGS (.dashboard, .title, .subtitle)
+   2. LAYOUT CONTAINER
    ========================================================================== */
 .dashboard {
     width: min(1200px, 92%);
-    margin: 40px auto;
-    animation: fadeIn .6s ease;
-    overflow: visible;
-}
-
-.title {
-    text-align: center;
-    font-size: 52px;
-    font-weight: 800;
-    /* Fixed: Standard solid blue color and line-height adjustment to prevent clipping */
-    line-height: 1.25;
-    margin: 25px 0;
-    color: #2563eb;
-}
-
-.subtitle {
-    text-align: center;
-    color: #6b7280;
-    margin-top: 15px;
-    font-size: 18px;
-    margin-bottom: 45px;
+    margin: 24px auto 60px auto;
+    animation: fadeIn 0.4s ease-out;
 }
 
 /* ==========================================================================
-   3. METRIC CARDS & GRID LAYOUTS (.cards, .card, .stat-card)
+   3. PREMIUM HEADER CARD & WELCOME BADGE
+   ========================================================================== */
+.glass-header {
+    width: min(1200px, 92%);
+    margin: 30px auto 10px auto;
+    padding: 32px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-smooth);
+    border: var(--card-border);
+}
+
+.header-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.restaurant-title {
+    color: #1e3a8a;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0 0 4px 0;
+}
+
+.subtitle-text {
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px 0;
+}
+
+.welcome-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 6px 14px;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+}
+
+.status-dot::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #10b981;
+    border-radius: 50%;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.welcome-text {
+    font-size: 13px;
+    color: #334155;
+    font-weight: 500;
+}
+
+.welcome-text strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.header-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.qr-btn {
+    background: var(--primary);
+    border: 1px solid var(--primary-hover);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(37, 99, 236, 0.18);
+}
+
+.qr-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.logout-btn {
+    background: #ef4444;
+    border: 1px solid #dc2626;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.18);
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 16px;
+}
+
+/* ==========================================================================
+   4. STATS GRID CARDS
    ========================================================================== */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
-}
-
-.card {
-    background: white;
-    border-radius: 22px;
-    padding: 20px;
-    cursor: pointer;
-    transition: .35s;
-    border: none;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 45px rgba(37, 99, 235, .15);
-}
-
-.stat-card {
-    background: white;
-    border-radius: 24px;
-    padding: 25px;
-    text-align: center;
-    transition: .35s;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
-}
-
-.stat-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 25px 50px rgba(37, 99, 235, .15);
-}
-
-.stat-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    font-size: 30px;
-}
-
-.stat-content h2 {
-    margin: 18px 0 10px;
-    font-size: 38px;
-    color: #111827;
-}
-
-.stat-content p {
-    color: #6b7280;
-    font-size: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+    margin-top: 20px;
 }
 
 /* ==========================================================================
-   4. RATING DISTRIBUTION METRICS (.reviewBox, .rating-bar)
+   5. CONTAINER BOX & RATING DISTRIBUTION FIX
    ========================================================================== */
 .reviewBox {
-    background: white;
-    padding: 35px;
-    border-radius: 25px;
-    margin-top: 40px;
-    transition: .35s;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, .08);
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-top: 32px;
+    box-shadow: var(--shadow-smooth);
+    border: var(--card-border);
 }
 
-.reviewBox:hover {
-    box-shadow: 0 25px 60px rgba(37, 99, 235, .12);
+.distribution-box {
+    max-width: 650px; /* Constrains distribution width to keep it clean and readable */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .reviewTitle {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
 }
 
+.distribution-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Force Horizontal Row Structure for the RatingBar Component */
 .rating-bar {
     display: flex;
     align-items: center;
-    gap: 18px;
-    margin: 20px 0;
+    gap: 16px;
+    width: 100%;
 }
 
 .rating-title {
-    width: 140px;
-    font-size: 22px;
-    font-weight: 600;
+    display: flex;
+    gap: 2px;
+    font-size: 14px;
+    color: #eab308; /* Premium golden star color code */
+    min-width: 85px;
+    justify-content: flex-start;
 }
 
 .progress {
     flex: 1;
-    height: 14px;
-    border-radius: 30px;
-    background: #e5e7eb;
+    height: 8px;
+    background-color: #f1f5f9;
+    border-radius: 9999px;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #2563eb, #60a5fa);
-    border-radius: 30px;
-    transition: width .6s ease;
+    background-color: #eab308; /* Filled progress line matches star tint */
+    border-radius: 9999px;
+    transition: width 0.4s ease;
 }
 
 .rating-count {
-    width: 55px;
+    min-width: 35px;
     text-align: right;
-    font-size: 22px;
-    font-weight: 700;
-}
-
-/* ==========================================================================
-   5. CUSTOMER REVIEWS FEED LIST (.review)
-   ========================================================================== */
-.review {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 18px;
-    transition: all .3s ease;
-}
-
-.review:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(37, 99, 235, .12);
-}
-
-.reviewNumber {
-    font-size: 20px;
-    font-weight: 700;
-    color: #2563eb;
-    margin-bottom: 10px;
-}
-
-.review p {
-    color: #374151;
-    line-height: 1.7;
-    margin: 8px 0;
-}
-
-.date {
-    color: #9ca3af;
     font-size: 14px;
-    margin-top: 10px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.no-reviews {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px 0;
+    font-size: 15px;
 }
 
 /* ==========================================================================
-   6. VISUAL ANALYTICS LAYOUT (.chart-section, .chart-card)
+   6. CHARTS LAYOUT
    ========================================================================== */
 .chart-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    gap: 25px;
-    margin: 40px 0;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
 }
 
 .chart-card {
-    background: white;
-    border-radius: 24px;
-    padding: 25px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
-    transition: .3s;
-}
-
-.chart-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 45px rgba(37, 99, 235, .15);
-}
-
-.recharts-wrapper {
-    margin: auto;
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-smooth);
+    border: var(--card-border);
 }
 
 /* ==========================================================================
-   7. INTERACTION COMPONENTS & KEYFRAMES (button, @keyframes)
+   7. FILTER PILL CHIPS
    ========================================================================== */
-button {
-    transition: all .3s ease;
+.filter-tabs-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 40px 0 10px 0;
 }
 
-button:hover {
-    transform: translateY(-3px);
+.filter-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.filter-pill .star-icon {
+    color: #f59e0b;
+}
+
+.filter-pill:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.filter-pill.active {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+}
+
+.filter-pill.active .star-icon {
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   8. TRANSITIONS & ANIMATIONS KEYFRAMES
+   ========================================================================== */
+button {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active {
+    transform: scale(0.98) !important;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(8px);
     }
     to {
         opacity: 1;
@@ -249,41 +338,36 @@ button:hover {
     }
 }
 
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    70% { transform: scale(2.2); opacity: 0; }
+    100% { transform: scale(0.95); opacity: 0; }
+}
+
 /* ==========================================================================
-   8. RESPONSIVE BREAKPOINTS (Mobile Media Query)
+   9. MEDIA QUERIES & RESPONSIVENESS
    ========================================================================== */
-@media(max-width: 768px) {
-    .dashboard {
-        width: 95%;
+@media (max-width: 768px) {
+    .glass-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 24px;
     }
 
-    .title {
-        font-size: 38px;
+    .header-buttons {
+        width: 100%;
     }
 
-    .subtitle {
-        font-size: 16px;
-    }
-
-    .cards {
-        grid-template-columns: 1fr;
-    }
-
-    .rating-title {
-        width: 90px;
-        font-size: 18px;
-    }
-
-    .rating-count {
-        width: 40px;
-        font-size: 18px;
-    }
-
-    .reviewBox {
-        padding: 20px;
+    .header-buttons button {
+        flex: 1;
     }
 
     .chart-section {
         grid-template-columns: 1fr;
+    }
+
+    .rating-bar {
+        gap: 10px;
     }
 }

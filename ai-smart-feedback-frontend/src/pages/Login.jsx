@@ -27,7 +27,13 @@ function Login() {
                 password
             });
 
-            localStorage.setItem("token", response.data);
+            // Save Login Information
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("restaurantId", response.data.restaurantId);
+            localStorage.setItem("restaurantName", response.data.restaurantName);
+
+            console.log(response.data);
+            alert("Restaurant ID = " + response.data.restaurantId);
 
             alert("Login Successful!");
 

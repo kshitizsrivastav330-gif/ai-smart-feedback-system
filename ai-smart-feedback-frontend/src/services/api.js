@@ -1,8 +1,11 @@
 import axios from "axios";
 
 // Axios Instance
+// const API = axios.create({
+//     baseURL: "https://ai-smart-feedback-system.onrender.com"
+// });
 const API = axios.create({
-    baseURL: "https://ai-smart-feedback-system.onrender.com"
+    baseURL: "http://localhost:8080"
 });
 
 // Automatically send JWT Token
@@ -29,20 +32,28 @@ export const loginRestaurant = (loginData) =>
     API.post("/auth/login", loginData);
 
 // =========================
-// Review APIs
+// AI APIs
 // =========================
 
 export const generateReview = (rating) =>
     API.get(`/comments/generate?rating=${rating}`);
 
-export const getDashboard = () =>
-    API.get("/comments/dashboard");
+// =========================
+// Dashboard APIs
+// =========================
 
-export const getAllReviews = () =>
-    API.get("/comments/all");
+export const getDashboard = (restaurantId) =>
+    API.get(`/comments/dashboard?restaurantId=${restaurantId}`);
 
-export const getReviewsByRating = (rating) =>
-    API.get(`/comments/rating/${rating}`);
+export const getAllReviews = (restaurantId) =>
+    API.get(`/comments/all?restaurantId=${restaurantId}`);
+
+export const getReviewsByRating = (restaurantId, rating) =>
+    API.get(`/comments/rating/${rating}?restaurantId=${restaurantId}`);
+
+// =========================
+// Feedback APIs
+// =========================
 
 export const saveFeedback = (feedback) =>
     API.post("/feedback", feedback);

@@ -18,14 +18,19 @@ import {
     FaComments,
     FaStar,
     FaSmile,
-    FaChartLine
+    FaChartLine,
+    FaQrcode,
+    FaSignOutAlt
 } from "react-icons/fa";
 
 import "./Dashboard.css";
 
 function Dashboard() {
-
     const navigate = useNavigate();
+
+    // Logged-in Restaurant
+    const restaurantId = localStorage.getItem("restaurantId");
+    const restaurantName = localStorage.getItem("restaurantName") || "Restaurant";
 
     const [dashboard, setDashboard] = useState({
         totalReviews: 0,
@@ -40,7 +45,6 @@ function Dashboard() {
     const [selectedRating, setSelectedRating] = useState(5);
 
     useEffect(() => {
-
         const token = localStorage.getItem("token");
 
         if (!token) {
@@ -50,49 +54,34 @@ function Dashboard() {
 
         loadDashboard();
         loadReviews(5);
-
-    }, [navigate]);
+    }, []);
 
     const loadDashboard = async () => {
-
         try {
-
-            const response = await getDashboard();
-
+            if (!restaurantId) return;
+            const response = await getDashboard(restaurantId);
             setDashboard(response.data);
-
         } catch (error) {
-
             console.log(error);
-
         }
-
     };
 
     const loadReviews = async (rating) => {
-
         try {
-
-            const response = await getReviewsByRating(rating);
-
+            if (!restaurantId) return;
+            const response = await getReviewsByRating(restaurantId, rating);
             setReviews(response.data);
-
             setSelectedRating(rating);
-
         } catch (error) {
-
             console.log(error);
-
         }
-
     };
 
     const logout = () => {
-
         localStorage.removeItem("token");
-
+        localStorage.removeItem("restaurantId");
+        localStorage.removeItem("restaurantName");
         navigate("/login");
-
     };
 
     const averageRating =
@@ -106,240 +95,132 @@ function Dashboard() {
             dashboard.oneStar
         ) / dashboard.totalReviews;
 
-    const positiveReviews =
-        dashboard.fiveStar + dashboard.fourStar;
-
-    const negativeReviews =
-        dashboard.oneStar + dashboard.twoStar;
+    const positiveReviews = dashboard.fiveStar + dashboard.fourStar;
+    const negativeReviews = dashboard.oneStar + dashboard.twoStar;
 
     const maxRating = Math.max(
         dashboard.fiveStar,
         dashboard.fourStar,
         dashboard.threeStar,
         dashboard.twoStar,
-        dashboard.oneStar
+        dashboard.oneStar,
+        1
     );
 
-    return (<>
+    return (
+        <>
             <Navbar />
 
-            <div
-                style={{
-                    width: "90%",
-                    maxWidth: "1200px",
-                    margin: "20px auto",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center"
-                }}
-            >
+            {/* Premium Header Container */}
+            <div className="glass-header">
+                <div className="header-info">
+                    <h2 className="restaurant-title">{restaurantName}</h2>
+                    <p className="subtitle-text">Restaurant Analytics Dashboard</p>
 
-                <div>
-
-                    <h2
-                        style={{
-                            margin: 0,
-                            fontSize: "32px",
-                            fontWeight: "700"
-                        }}
-                    >
-                        AI Smart Feedback
-                    </h2>
-
-                    <p
-                        style={{
-                            marginTop: "8px",
-                            color: "#6b7280"
-                        }}
-                    >
-                        Restaurant Analytics Dashboard
-                    </p>
-
+                    <div className="welcome-badge">
+                        <span className="status-dot"></span>
+                        <span className="welcome-text">Welcome back, <strong>{restaurantName}</strong></span>
+                    </div>
                 </div>
 
-                <div
-                    style={{
-                        display: "flex",
-                        gap: "12px"
-                    }}
-                >
-
-                    <button
-                        onClick={() => navigate("/qr")}
-                        style={{
-                            background: "#2563eb",
-                            color: "white",
-                            border: "none",
-                            padding: "10px 20px",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                            fontWeight: "bold"
-                        }}
-                    >
-                        📱 Restaurant QR
+                <div className="header-buttons">
+                    <button className="qr-btn" onClick={() => navigate("/qr")}>
+                        <FaQrcode className="btn-icon" /> <span>View QR Code</span>
                     </button>
-
-                    <button
-                        onClick={logout}
-                        style={{
-                            background: "#ef4444",
-                            color: "white",
-                            border: "none",
-                            padding: "10px 20px",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                            fontWeight: "bold"
-                        }}
-                    >
-                        Logout
+                    <button className="logout-btn" onClick={logout}>
+                        <FaSignOutAlt className="btn-icon" /> <span>Logout</span>
                     </button>
-
                 </div>
-
             </div>
 
+            {/* Main Content Dashboard */}
             <div className="dashboard">
-
-                <h1 className="title">
-                    AI Smart Feedback Dashboard
-                </h1>
-
-                <p className="subtitle">
-                    Monitor customer feedback, ratings and AI-powered insights in one place.
-                </p>
-
+                {/* Stats Cards Row */}
                 <div className="cards">
-
                     <StatCard
                         title="Total Reviews"
                         value={dashboard.totalReviews}
                         icon={<FaComments />}
                         color="#E8F1FF"
                     />
-
                     <StatCard
                         title="Average Rating"
                         value={averageRating.toFixed(1)}
                         icon={<FaStar />}
                         color="#FFF7E6"
                     />
-
                     <StatCard
                         title="Positive Reviews"
                         value={positiveReviews}
                         icon={<FaSmile />}
                         color="#EAFBF1"
                     />
-
                     <StatCard
                         title="Needs Improvement"
                         value={negativeReviews}
                         icon={<FaChartLine />}
                         color="#FFEAEA"
                     />
-
                 </div>
 
-                <div className="reviewBox">
-
-                    <h2 className="reviewTitle">
-                        Rating Distribution
-                    </h2>
-
-                    <RatingBar stars={5} count={dashboard.fiveStar} max={maxRating} />
-                    <RatingBar stars={4} count={dashboard.fourStar} max={maxRating} />
-                    <RatingBar stars={3} count={dashboard.threeStar} max={maxRating} />
-                    <RatingBar stars={2} count={dashboard.twoStar} max={maxRating} />
-                    <RatingBar stars={1} count={dashboard.oneStar} max={maxRating} />
-
+                {/* Refactored Professional Rating Distribution Area */}
+                <div className="reviewBox distribution-box">
+                    <h2 className="reviewTitle">Rating Distribution</h2>
+                    <div className="distribution-list">
+                        <RatingBar stars={5} count={dashboard.fiveStar} max={maxRating} />
+                        <RatingBar stars={4} count={dashboard.fourStar} max={maxRating} />
+                        <RatingBar stars={3} count={dashboard.threeStar} max={maxRating} />
+                        <RatingBar stars={2} count={dashboard.twoStar} max={maxRating} />
+                        <RatingBar stars={1} count={dashboard.oneStar} max={maxRating} />
+                    </div>
                 </div>
 
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit,minmax(420px,1fr))",
-                        gap: "25px",
-                        marginTop: "35px",
-                        marginBottom: "35px"
-                    }}
-                >
-
-                    <ReviewBarChart dashboard={dashboard} />
-
-                    <RatingPieChart dashboard={dashboard} />
-
+                {/* Analytics Charts Grid */}
+                <div className="chart-section">
+                    <div className="chart-card">
+                        <ReviewBarChart dashboard={dashboard} />
+                    </div>
+                    <div className="chart-card">
+                        <RatingPieChart dashboard={dashboard} />
+                    </div>
                 </div>
 
-                <div
-                    style={{
-                        display: "flex",
-                        gap: "12px",
-                        flexWrap: "wrap",
-                        justifyContent: "center",
-                        marginBottom: "35px"
-                    }}
-                >
-
-                    {[5,4,3,2,1].map((star) => (
-
+                {/* Modern Interactive Filter Tabs */}
+                <div className="filter-tabs-container">
+                    {[5, 4, 3, 2, 1].map((star) => (
                         <button
                             key={star}
-                            className="card"
+                            className={`filter-pill ${selectedRating === star ? "active" : ""}`}
                             onClick={() => loadReviews(star)}
                         >
-                            {"⭐".repeat(star)}
+                            <FaStar className="star-icon" /> {star} Star Reviews
                         </button>
-
                     ))}
-
                 </div>
 
+                {/* Filtered Active Reviews Area */}
                 <div className="reviewBox">
-
                     <h2 className="reviewTitle">
-
-                        {selectedRating} ⭐ Reviews ({reviews.length})
-
+                        {selectedRating} Star Reviews ({reviews.length})
                     </h2>
 
-                    {
-
-                        reviews.length === 0 ?
-
-                            (
-
-                                <p
-                                    style={{
-                                        textAlign: "center",
-                                        color: "gray"
-                                    }}
-                                >
-                                    No Reviews Found
-                                </p>
-
-                            )
-
-                            :
-
+                    <div className="reviews-list-container">
+                        {reviews.length === 0 ? (
+                            <p className="no-reviews">No reviews found for this rating.</p>
+                        ) : (
                             reviews.map((review, index) => (
-
                                 <ReviewCard
                                     key={review.id}
                                     review={review}
                                     index={index}
                                 />
-
                             ))
-
-                    }
-
+                        )}
+                    </div>
                 </div>
-
             </div>
-
         </>
     );
-
 }
 
 export default Dashboard;

@@ -42,4 +42,8 @@ public class FeedbackController {
 
         return "Feedback Deleted Successfully";
     }
+    @GetMapping("/restaurant/{restaurantId}")
+    public List<Feedback> getRestaurantFeedback(@PathVariable Long restaurantId) {
+        return service.getRestaurantFeedback(restaurantId);
+    }
 }

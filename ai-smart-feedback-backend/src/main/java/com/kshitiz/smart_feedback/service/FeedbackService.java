@@ -34,4 +34,7 @@ public class FeedbackService {
     public void deleteFeedback(Long id) {
         repository.deleteById(id);
     }
+    public List<Feedback> getRestaurantFeedback(Long restaurantId) {
+        return repository.findByRestaurantId(restaurantId);
+    }
 }
