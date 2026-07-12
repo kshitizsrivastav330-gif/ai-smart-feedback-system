@@ -1,242 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
 .qr-page {
-
     min-height: 100vh;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     background: linear-gradient(135deg, #f8fbff, #eef5ff);
-
-    padding: 40px;
-
+    padding: 20px; /* Fluid buffer room */
 }
 
 .qr-card {
-
-    width: 560px;
-
+    width: 100%;
+    max-width: 540px; /* Scales elegantly down on laptops to tablets */
     background: white;
-
-    border-radius: 28px;
-
-    padding: 40px;
-
+    border-radius: 24px;
+    padding: 40px 32px;
     text-align: center;
-
-    box-shadow: 0 25px 60px rgba(0,0,0,.12);
-
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
     border: 1px solid #edf2f7;
-
-}
-
-.qr-card h1{
-
-    margin:0;
-
-    font-size:48px;
-
-    font-weight:800;
-
-    color:#111827;
-
-    line-height:1.15;
-
-    letter-spacing:-1px;
-}
-
-.qr-card h3{
-
-    margin:12px 0 20px;
-
-    color:#2563eb;
-
-    font-size:28px;
-
-    font-weight:700;
-}
-
-.qr-card p{
-
-    max-width:420px;
-
-    margin:0 auto 35px;
-
-    color:#6b7280;
-
-    font-size:17px;
-
-    line-height:1.8;
-
-    text-align:center;
-}
-
-.qr-box {
-
-    display: inline-flex;
-
-    justify-content: center;
-
+    display: flex;
+    flex-direction: column;
     align-items: center;
+}
 
+.qr-card h1 {
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.qr-card h3 {
+    margin: 10px 0 16px;
+    color: #2563eb;
+    font-size: clamp(20px, 4vw, 26px);
+    font-weight: 700;
+}
+
+.qr-card p {
+    max-width: 100%;
+    margin: 0 auto 28px auto;
+    color: #6b7280;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Fluid responsive layout container housing the custom SVG asset */
+.qr-box {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     background: white;
-
-    padding: 25px;
-
-    border-radius: 20px;
-
+    padding: 20px;
+    border-radius: 18px;
     border: 2px solid #e5e7eb;
-
-    transition: .3s;
-
+    transition: all 0.25s ease;
+    width: 100%;
+    max-width: 260px; /* Keeps the square QR bounded cleanly on giant screens */
+    aspect-ratio: 1 / 1;
 }
 
 .qr-box:hover {
-
-    transform: scale(1.03);
-
-    box-shadow: 0 15px 35px rgba(37,99,235,.15);
-
+    transform: scale(1.02);
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.12);
 }
 
 .link-box {
-
-    margin-top: 28px;
-
+    width: 100%;
+    margin-top: 24px;
     background: #f8fafc;
-
     border: 1px solid #e5e7eb;
-
-    border-radius: 14px;
-
-    padding: 16px;
-
+    border-radius: 12px;
+    padding: 14px;
     color: #2563eb;
-
-    font-size: 14px;
-
+    font-size: 13px;
     font-weight: 600;
-
     word-break: break-all;
-
 }
 
+/* Responsive grid setup: default horizontal layout for desktops and iPads */
 .btn-group {
-
-    margin-top: 30px;
-
+    width: 100%;
+    margin-top: 24px;
     display: grid;
-
-    grid-template-columns: repeat(3,1fr);
-
-    gap: 15px;
-
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
 }
 
 .copy-btn,
 .download-btn,
 .print-btn {
-
     border: none;
-
-    border-radius: 14px;
-
-    padding: 14px;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
+    border-radius: 12px;
+    padding: 12px 6px;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
-
-    transition: .3s;
-
-}
-
-.copy-btn {
-
-    background: #2563eb;
-
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
-
 }
 
-.copy-btn:hover {
+.copy-btn { background: #2563eb; }
+.copy-btn:hover { background: #1d4ed8; transform: translateY(-2px); }
 
-    background: #1d4ed8;
+.download-btn { background: #16a34a; }
+.download-btn:hover { background: #15803d; transform: translateY(-2px); }
 
-    transform: translateY(-3px);
+.print-btn { background: #f59e0b; }
+.print-btn:hover { background: #d97706; transform: translateY(-2px); }
 
+.qr-footer-tag {
+    margin-top: 28px !important;
+    color: #64748b;
+    font-size: 13px !important;
+    font-weight: 500;
+    margin-bottom: 0 !important;
 }
 
-.download-btn {
+/* ==========================================================================
+   Breakpoints Adaptive Layout Configurations
+   ========================================================================== */
 
-    background: #16a34a;
-
-    color: white;
-
-}
-
-.download-btn:hover {
-
-    background: #15803d;
-
-    transform: translateY(-3px);
-
-}
-
-.print-btn {
-
-    background: #f59e0b;
-
-    color: white;
-
-}
-
-.print-btn:hover {
-
-    background: #d97706;
-
-    transform: translateY(-3px);
-
-}
-
-@media (max-width:768px) {
-
+/* 📱 Smartphone Viewports Layout Optimization (under 576px) */
+@media (max-width: 576px) {
     .qr-card {
-
-        width: 100%;
-
         padding: 30px 20px;
-
+        border-radius: 20px;
     }
 
-    .qr-card h1 {
-
-        font-size: 30px;
-
-    }
-
-    .qr-card h3 {
-
-        font-size: 20px;
-
-    }
-
+    /* Stack buttons vertically on small phone views to give text breathing room */
     .btn-group {
-
         grid-template-columns: 1fr;
-
+        gap: 8px;
     }
 
     .copy-btn,
     .download-btn,
     .print-btn {
-
         width: 100%;
-
+        padding: 14px;
     }
-
 }

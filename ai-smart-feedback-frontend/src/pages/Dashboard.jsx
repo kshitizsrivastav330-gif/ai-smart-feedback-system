@@ -108,7 +108,7 @@ function Dashboard() {
     );
 
     return (
-        <>
+        <div className="dashboard-wrapper">
             <Navbar />
 
             {/* Premium Header Container */}
@@ -193,7 +193,7 @@ function Dashboard() {
                             className={`filter-pill ${selectedRating === star ? "active" : ""}`}
                             onClick={() => loadReviews(star)}
                         >
-                            <FaStar className="star-icon" /> {star} Star Reviews
+                            <FaStar className="star-icon" /> {star} ★
                         </button>
                     ))}
                 </div>
@@ -219,7 +219,7 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

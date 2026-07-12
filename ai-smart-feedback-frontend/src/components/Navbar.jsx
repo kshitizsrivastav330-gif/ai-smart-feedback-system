@@ -1,10 +1,34 @@
-import { FaUtensils } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaUtensils, FaBars, FaTimes } from "react-icons/fa";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // Close menu automatically if screen resizes to desktop width
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 992) {
+                setIsMenuOpen(false);
+            }
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleLinkClick = (action) => {
+        setIsMenuOpen(false); // Close mobile menu when a link is tapped
+        if (typeof action === "function") {
+            action();
+        }
+    };
 
     const goHome = () => {
         if (location.pathname !== "/") {
@@ -49,31 +73,35 @@ function Navbar() {
     return (
         <div className="navbar-container">
             <nav className="navbar">
-                <div className="logo" onClick={goHome}>
+                <div className="logo" onClick={() => handleLinkClick(goHome)}>
                     <FaUtensils />
                     <span className="logo-text">
                         AI Smart Feedback
                     </span>
                 </div>
 
-                <div className="menu">
-                    <span className="nav-link" onClick={goHome}>
+                {/* Hamburger Button for Mobile/Tablet */}
+                <button className="menu-toggle-btn" onClick={toggleMenu} aria-label="Toggle navigation">
+                    {isMenuOpen ? <FaTimes /> : <FaBars />}
+                </button>
+
+                {/* Navigation Menu */}
+                <div className={`menu ${isMenuOpen ? "mobile-open" : ""}`}>
+                    <span className="nav-link" onClick={() => handleLinkClick(goHome)}>
                         Home
                     </span>
 
-                    <span className="nav-link" onClick={() => scrollToSection("features")}>
+                    <span className="nav-link" onClick={() => handleLinkClick(() => scrollToSection("features"))}>
                         Features
                     </span>
 
-                    <span className="nav-link" onClick={() => scrollToSection("how-it-works")}>
+                    <span className="nav-link" onClick={() => handleLinkClick(() => scrollToSection("how-it-works"))}>
                         How It Works
                     </span>
 
-                    <Link className="nav-link" to="/dashboard">
+                    <Link className="nav-link" to="/dashboard" onClick={() => setIsMenuOpen(false)}>
                         Dashboard
                     </Link>
-
-                  
                 </div>
             </nav>
         </div>
