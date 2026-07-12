@@ -1,13 +1,12 @@
 import axios from "axios";
 
-// Axios Instance
-// const API = axios.create({
-//     baseURL: "https://ai-smart-feedback-system.onrender.com"
-// });
+// Render Backend URL
 const API = axios.create({
-    baseURL: "http://localhost:8080"
+    baseURL: "https://ai-smart-feedback-system.onrender.com"
 });
-
+// const API = axios.create({
+//     baseURL: "http://localhost:8080"
+// });
 // Automatically send JWT Token
 API.interceptors.request.use((config) => {
 
@@ -18,7 +17,6 @@ API.interceptors.request.use((config) => {
     }
 
     return config;
-
 });
 
 // =========================

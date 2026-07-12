@@ -4,23 +4,48 @@ import "./QRCodePage.css";
 
 function QRCodePage() {
 
-    // Later get from logged-in restaurant
     const restaurantId = localStorage.getItem("restaurantId");
-    const restaurantName = localStorage.getItem("restaurantName");
-    // Development URL
-    const qrValue =
-        `http://localhost:5173/feedback/${restaurantId}`;
+    const restaurantName =
+        localStorage.getItem("restaurantName") || "Restaurant";
 
-    // After deployment use:
-    // const qrValue = `https://your-project.vercel.app/feedback/${restaurantId}`;
+    // Automatically use localhost in development
+    // and your Vercel URL in production
+    const FRONTEND_URL =
+        import.meta.env.VITE_FRONTEND_URL ||
+        window.location.origin;
+
+    const qrValue =
+        `${FRONTEND_URL}/feedback/${restaurantId}`;
 
     const qrRef = useRef();
 
-    const copyLink = () => {
+    if (!restaurantId) {
+        return (
+            <div className="qr-page">
+                <div className="qr-card">
+                    <h2>Restaurant not found</h2>
 
-        navigator.clipboard.writeText(qrValue);
+                    <p>
+                        Please login again to generate your QR Code.
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
-        alert("✅ Link Copied!");
+    const copyLink = async () => {
+
+        try {
+
+            await navigator.clipboard.writeText(qrValue);
+
+            alert("✅ QR Link Copied Successfully!");
+
+        } catch (error) {
+
+            alert("❌ Unable to copy link.");
+
+        }
 
     };
 
@@ -42,23 +67,49 @@ function QRCodePage() {
 
             const canvas = document.createElement("canvas");
 
-            canvas.width = 600;
-
-            canvas.height = 600;
+            canvas.width = 700;
+            canvas.height = 700;
 
             const ctx = canvas.getContext("2d");
 
             ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, 700, 700);
 
-            ctx.fillRect(0, 0, 600, 600);
+            ctx.fillStyle = "#111827";
+            ctx.font = "bold 32px Arial";
+            ctx.textAlign = "center";
 
-            ctx.drawImage(image, 80, 80, 440, 440);
+            ctx.fillText(
+                restaurantName,
+                350,
+                60
+            );
 
-            const link = document.createElement("a");
+            ctx.drawImage(
+                image,
+                135,
+                110,
+                430,
+                430
+            );
 
-            link.download = `${restaurantName}-QR.png`;
+            ctx.fillStyle = "#6b7280";
+            ctx.font = "20px Arial";
 
-            link.href = canvas.toDataURL("image/png");
+            ctx.fillText(
+                "Scan to submit your feedback",
+                350,
+                585
+            );
+
+            const link =
+                document.createElement("a");
+
+            link.download =
+                `${restaurantName}-QR-Code.png`;
+
+            link.href =
+                canvas.toDataURL("image/png");
 
             link.click();
 
@@ -77,15 +128,16 @@ function QRCodePage() {
         <div className="qr-page">
 
             <div className="qr-card">
-                <h1>AI Smart Feedback</h1>
 
-                {/*<h3>Scan • Rate • Improve</h3>*/}
+                <h1>🍽 AI Smart Feedback</h1>
+
                 <h3>{restaurantName}</h3>
 
                 <p>
-                    Scan the QR code to rate your experience.
-                    Help us improve with AI-powered feedback.
+                    Scan this QR code to submit your feedback.
+                    Your opinion helps us improve our service using AI.
                 </p>
+
                 <div
                     className="qr-box"
                     ref={qrRef}
@@ -93,7 +145,8 @@ function QRCodePage() {
 
                     <QRCode
                         value={qrValue}
-                        size={230}
+                        size={240}
+                        level="H"
                     />
 
                 </div>
@@ -132,11 +185,12 @@ function QRCodePage() {
                 <p
                     style={{
                         marginTop: "30px",
-                        color: "#6b7280",
-                        fontSize: "14px"
+                        color: "#64748b",
+                        fontSize: "14px",
+                        fontWeight: "500"
                     }}
                 >
-                    Powered by AI Smart Feedback
+                    Powered by AI Smart Feedback System
                 </p>
 
             </div>
