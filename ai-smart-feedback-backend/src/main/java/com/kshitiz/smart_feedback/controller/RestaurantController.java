@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/restaurant")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class RestaurantController {
 
     private final RestaurantRepository restaurantRepository;

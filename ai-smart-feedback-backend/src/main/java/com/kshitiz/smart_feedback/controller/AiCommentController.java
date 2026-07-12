@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/comments")
-@CrossOrigin(origins = "http://localhost:5173")
+
 public class AiCommentController {
 
     private final AiCommentService service;

@@ -40,7 +40,9 @@ public class RestaurantService {
         String qrToken = UUID.randomUUID().toString();
 
         restaurant.setQrToken(qrToken);
-        restaurant.setQrCodeUrl("http://localhost:5173/f/" + qrToken);
+        restaurant.setQrCodeUrl(
+                "https://ai-smart-feedback-system-git-main-kshitiz-srivastava.vercel.app/feedback/" + restaurant.getId()
+        );
         restaurant.setCreatedAt(LocalDateTime.now());
         restaurant.setActive(true);
 

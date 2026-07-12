@@ -10,12 +10,11 @@ function QRCodePage() {
 
     // Automatically use localhost in development
     // and your Vercel URL in production
-    const FRONTEND_URL =
-        import.meta.env.VITE_FRONTEND_URL ||
-        window.location.origin;
+    const FRONTEND_URL = window.location.origin;
 
     const qrValue =
         `${FRONTEND_URL}/feedback/${restaurantId}`;
+
 
     const qrRef = useRef();
 
